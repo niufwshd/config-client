@@ -1,0 +1,27 @@
+  version: "3"
+  services:
+    eureka-server:
+      image: sha256:2da935cf36a5d0127db6be994f10d40a6aac0ad80d9c1d855622a4ba9a02632e
+      hostname: eurekaserver
+      ports:
+        - "192.168.121.128:7880:7880"
+
+    config-server:
+      image: sha256:da2d0a7d5f64c7c30f939dc0c9c3dfee9c6839fbb778947de35def7a13fe6315
+      hostname: configserver
+      ports:
+        - "192.168.121.128:7881:7881"
+      depends_on:
+        - eureka-server
+      restart: always
+
+    config-client:
+      image: sha256:b892f9e827402c6517fe7663bdbe3ddbdc487e149e1dbca2d9f90083717b31c3
+      hostname: configclient
+      ports:
+        - "192.168.121.128:8008:8008"
+      depends_on:
+        - eureka-server
+        - config-server
+      restart: always
+

@@ -1,0 +1,25 @@
+eureka:
+  instance:
+      prefer-ip-address: true
+  client:
+      serviceUrl:
+         defaultZone: http://192.168.121.128:7880/eureka
+
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      name: config-client #对应config server Url中的{application}
+      profile: dev #配置环境，对应config server Url中的{profile}
+      #label: trunk #配置分支(不配置则默认：git则是master,svn则是trunk)，
+      #uri: http://192.168.121.128:7881 #配置中心地址
+      discovery:
+        enabled: true
+        service-id: config-server
+
+management:
+   security:
+      enabled: false
+   basic:
+      enabled: false
